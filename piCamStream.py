@@ -77,14 +77,15 @@ def faceStream(connection):
         imgstream.seek(0)
         camera.capture(imgstream, 'jpeg', use_video_port=True)
         numFaces = findFaces()
-    if numFaces > 0:
-        camera.annotate_text = str(numFaces) + ' Face(s) Detected'
-    else:
-        camera.annotate_text = 'No Face(s) Detected'
+    	if numFaces > 0:
+            camera.annotate_text = str(numFaces) + ' Face(s) Detected'
+    	else:
+       	    camera.annotate_text = 'No Face(s) Detected'
     camera.wait_recording(1)
     camera.stop_recording()
     
 #use haar cascades in OpenCV to find the number of faces in an image
+#also finds the coordinates of the square around each face
 def findFaces():
     global imgstream
     buff = numpy.fromstring(imgstream.getvalue(), dtype=numpy.uint8)
